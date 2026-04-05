@@ -1,7 +1,18 @@
 sources:
   - name: jaffle_shop
     database: raw  
-    schema: jaffle_shop  
+    schema: jaffle_shop
     tables:
-      - name: orders
       - name: customers
+      - name: orders
+        config: 
+          freshness:
+            warn_after:
+              count: 12
+              period: hour
+            error_after:
+              count: 1
+              period: day
+          loaded_at_field: "CAST(order_date AS TIMESTAMP)"
+
+
